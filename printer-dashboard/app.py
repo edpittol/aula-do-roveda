@@ -4,7 +4,6 @@ from config import load_config
 from syncthru_mock import get_toner
 
 PRINTERS_JSON = os.path.join(os.path.dirname(__file__), "printers.json")
-TONER_THRESHOLD = 10
 
 
 def create_app(config_path=PRINTERS_JSON):
@@ -13,12 +12,16 @@ def create_app(config_path=PRINTERS_JSON):
     @app.route("/")
     def index():
         printers = load_config(config_path)
-        critical = []
+        accessible = []
+        inaccessible = []
         for p in printers:
             level = get_toner(p["ip"])
-            if level is not None and level <= TONER_THRESHOLD:
-                critical.append({"label": p["label"], "toner": level})
-        return render_template("index.html", critical=critical)
+            if level is None:
+                inaccessible.append({"label": p["label"], "toner": None})
+            else:
+                accessible.append({"label": p["label"], "toner": level})
+        all_printers = accessible + inaccessible
+        return render_template("index.html", printers=all_printers)
 
     return app
 

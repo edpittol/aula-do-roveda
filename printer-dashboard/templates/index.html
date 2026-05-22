@@ -5,15 +5,22 @@
     <title>Dashboard de Toner</title>
 </head>
 <body>
-    <h1>Impressoras com toner crítico</h1>
-    {% if critical %}
+    <h1>Dashboard de Impressoras</h1>
+    {% if printers %}
         <ul>
-        {% for printer in critical %}
-            <li>{{ printer.label }} — {{ printer.toner }}%</li>
+        {% for printer in printers %}
+            <li>
+                {{ printer.label }} —
+                {% if printer.toner is none %}
+                    <span style="color: gray; font-style: italic;">Inacessível</span>
+                {% else %}
+                    {{ printer.toner }}%
+                {% endif %}
+            </li>
         {% endfor %}
         </ul>
     {% else %}
-        <p>Todas as impressoras estão OK</p>
+        <p>Nenhuma impressora configurada</p>
     {% endif %}
 </body>
 </html>
