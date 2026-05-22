@@ -1,0 +1,5 @@
+[
+  {"label": "Sala de Reunião", "ip": "192.168.1.10"},
+  {"label": "Recepção",        "ip": "192.168.1.11"},
+  {"label": "Depósito",        "ip": "192.168.1.99"}
+]
