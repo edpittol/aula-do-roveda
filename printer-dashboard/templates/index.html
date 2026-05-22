@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Toner</title>
+</head>
+<body>
+    <h1>Impressoras com toner crítico</h1>
+    {% if critical %}
+        <ul>
+        {% for printer in critical %}
+            <li>{{ printer.label }} — {{ printer.toner }}%</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Todas as impressoras estão OK</p>
+    {% endif %}
+</body>
+</html>
